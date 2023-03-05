@@ -1,0 +1,8 @@
+{
+  "profiles": {
+    "SecretSanta.Console": {
+      "commandName": "Project",
+      "commandLineArgs": "G:\\test\\participants.txt G:\\test\\banned.txt G:\\test\\output.txt"
+    }
+  }
+}

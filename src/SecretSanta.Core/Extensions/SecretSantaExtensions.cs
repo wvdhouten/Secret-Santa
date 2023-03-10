@@ -24,6 +24,36 @@ namespace SecretSanta.Core.Extensions
         /// <typeparam name="T">The type of the items in the list.</typeparam>
         /// <param name="source">A list of items.</param>
         /// <returns>All permutations of the list as an enumerable.</returns>
+        public static IEnumerable<List<T>> GetPermutations<T>(IList<T> source)
+        {
+            var count = source.Count;
+            var indices = new int[count];
+            
+            yield return source;
+            
+            for (var i = 0; i < count;)
+            {
+                if (indices[i] < i)
+                {
+                    Swap(source, i % 2 == 0 ? 0 : indices[i], i);
+                    yield return list;
+                    indices[i]++;
+                    i = 0;
+                }
+                else
+                {
+                    indices[i++] = 0;
+                }
+            }
+        }
+        
+        private static void SwapItems<T>(IList<T> list, int itemA, int itemB)
+        {
+            var temp = list[itemA];
+            list[itemA] = list[itemB];
+            list[itemB] = temp;
+        }
+        
         public static IEnumerable<IEnumerable<T>> GetPermutations<T>(this IList<T> source) where T : notnull
         {
             if (source.Count == 0)

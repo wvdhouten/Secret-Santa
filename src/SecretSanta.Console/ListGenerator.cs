@@ -1,6 +1,4 @@
-﻿using SecretSanta.Core;
-
-namespace SecretSanta.Console
+﻿namespace SecretSanta.Console
 {
     public class ListGenerator
     {
@@ -10,19 +8,19 @@ namespace SecretSanta.Console
             var outputFile = args[1];
             var bannedPairs = args.Length > 2 
                 ? ReadBannedPairs(args[2])
-                : new Dictionary<string, string>();
+                : [];
 
             var pairs = SecretSantaGenerator.Generate(participants, bannedPairs);
 
-            WriteOutput(outputFile, pairs);
+            WriteOutput(outputFile, pairs.Value);
         }
 
-        private static IEnumerable<string> ReadFile(string filePath)
+        private static string[] ReadFile(string filePath)
         {
-            return File.ReadLines(filePath).Select(record => record.Trim());
+            return File.ReadLines(filePath).Select(record => record.Trim()).ToArray();
         }
 
-        private static IDictionary<string, string> ReadBannedPairs(string filePath)
+        private static Dictionary<string, string> ReadBannedPairs(string filePath)
         {
             var dict = new Dictionary<string, string>();
 
